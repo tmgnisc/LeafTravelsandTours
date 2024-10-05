@@ -1,0 +1,48 @@
+.blog-page {
+    padding: 2rem 0; 
+  }
+  
+  .blog-card {
+    border: none; 
+    transition: transform 0.2s; 
+  }
+  
+  .blog-card:hover {
+    transform: translateY(-5px); 
+  }
+  
+  .blog-card img {
+    height: 200px;
+    object-fit: cover; 
+  }
+  
+  .blog-title {
+    font-size: 1.25rem; 
+    font-weight: bold; 
+  }
+  
+  .blog-description {
+    color: #6c757d; 
+  }   
+  
+ 
+  .mb-4 {   
+    margin-bottom: 2rem !important; 
+  }
+  
+  .youtube-videos {
+    display: flex;
+    overflow-x: auto; /* Allows horizontal scrolling */
+    padding: 1rem 0;
+    gap: 1rem; /* Space between video containers */
+  }
+  
+  .video-container {
+    flex: 0 0 auto; /* Prevents the container from shrinking */
+    width: 300px; /* Width of each video */
+  }
+  
+  .video-container iframe {
+    border-radius: 10px; /* Optional: rounded corners for the video */
+  }
+  

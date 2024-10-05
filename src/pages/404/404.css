@@ -1,0 +1,21 @@
+/* src/pages/notFound.css */
+.not-found {
+    padding: 50px 0;
+    text-align: center;
+  }
+  
+  .not-found h1 {
+    font-size: 5rem;
+    font-weight: bold;
+  }
+  
+  .not-found h2 {
+    font-size: 2rem;
+    margin-top: 20px;
+  }
+  
+  .not-found p {
+    font-size: 1.2rem;
+    margin-top: 10px;
+  }
+  

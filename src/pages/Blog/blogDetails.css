@@ -1,0 +1,14 @@
+.blog-details {
+    padding: 2rem 0;
+  }
+  
+  .blog-image {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 1.5rem; /* Space below the image */
+  }
+  
+  h1 {
+    margin-bottom: 1rem; /* Space below the title */
+  }
+  
