@@ -165,7 +165,7 @@ const Home = () => {
   return (
     <>
       <Banner />
-      {/* <AdvanceSearch /> */}
+      <AdvanceSearch />
       <section className="partners-section">
         <Container>
           <Row>
@@ -225,12 +225,13 @@ const Home = () => {
                 READY FOR UNFORGETTABLE TRAVEL. REMEMBER US!
               </h2>
               <p className="text">
-                Embark on a journey of a lifetime with us, creating memories that will last forever.
+                Embark on a journey of a lifetime with us, creating memories
+                that will last forever.
               </p>
             </Col>
             <Col md="4" className="text-center mt-3 mt-md-0">
               <a
-                href="tel:6398312365"
+                href="tel:9802305614"
                 className="secondary_btn bounce"
                 rel="no"
               >
@@ -260,11 +261,11 @@ const Home = () => {
       </section>
 
       {/* Modal for popup image */}
-      <Modal
+      {/* <Modal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         imageUrl="path/to/your/image.jpg" // Replace with the actual image path you want to show
-      />
+      /> */}
     </>
   );
 };

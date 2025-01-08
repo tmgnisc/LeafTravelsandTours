@@ -1,7 +1,7 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
-import sliderImg from "../../assets/images/slider/3.png";
-import sliderImg1 from "../../assets/images/slider/1.png";
+import sliderImg from "../../assets/images/feature/Mountains-in-Nepal.webp";
+import sliderImg1 from "../../assets/images/feature/Top-10-highest-mountains-in-Nepal.webp";
 import "../Banner/banner.css";
 
 const Banner = () => {

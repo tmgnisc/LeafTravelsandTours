@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Offcanvas } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
-import { popularsData } from "../../components/utils/data";
 import ProductCard from "../../components/Cards/ProductCard";
 import Filters from "./Filters";
 
@@ -10,6 +9,7 @@ function Tours() {
   const [showFilter, setShowFilter] = useState(false);
   const [inboundFilter, setInboundFilter] = useState(false);
   const [outboundFilter, setOutboundFilter] = useState(false);
+  const [tours, setTours] = useState([]);
 
   const handleFilter = () => {
     setShowFilter(true);
@@ -18,29 +18,45 @@ function Tours() {
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = "tour";
+
+    // Fetch data from the API
+    const fetchTours = async () => {
+      try {
+        const response = await fetch(
+          "https://admin.leaftravelsandtour.com/api/tour/"
+        );
+        const data = await response.json();
+        setTours(data);
+      } catch (error) {
+        console.error("Error fetching tours:", error);
+      }
+    };
+
+    fetchTours();
   }, []);
 
-  const filteredTours = popularsData.filter((tour) => {
+
+  const filteredTours = tours.filter((tour) => {
     if (inboundFilter && outboundFilter) {
       return true; 
     }
     if (inboundFilter) {
-      return tour.location.includes("Nepal") || tour.location.includes("Kathmandu"); 
+      return tour.category === "Inbound"; 
     }
     if (outboundFilter) {
-      return !tour.location.includes("Nepal") && !tour.location.includes("Kathmandu"); 
+      return tour.category === "outbound";
     }
     return true;
   });
 
   return (
     <>
-     <Breadcrumbs 
-  title="Tours" 
-  pagename="Tours" 
-  childnamed="d-none" 
-  additionalText="You can customized package as your choice as well. Kindly contact us for customized pacakge" 
-/>
+      <Breadcrumbs
+        title="Tours"
+        pagename="Tours"
+        childnamed="d-none"
+        additionalText="You can customize packages as your choice. Kindly contact us for customized packages."
+      />
 
       <section className="tour_list py-5">
         <Container>

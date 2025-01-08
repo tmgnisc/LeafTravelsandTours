@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Row,
@@ -7,37 +7,57 @@ import {
   Nav,
   Card,
   ListGroup,
-  Stack,
   Accordion,
 } from "react-bootstrap";
 import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 import { NavLink, useParams, useNavigate } from "react-router-dom";
 import "react-image-gallery/styles/css/image-gallery.css";
 import ImageGallery from "react-image-gallery";
-import { tourDetails } from "../../components/utils/data";
 import "./tour.css";
 
 function TourDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const tourId = parseInt(id, 10);
-  const tour = tourDetails[tourId];
-  console.log("Tour Data:", tour);
+  const [tour, setTour] = useState(null);
 
   useEffect(() => {
-    if (!tour) {
-      navigate("/404"); // Redirect to the 404 page
-    }
-  }, [tour, navigate]);
+    const fetchTourDetails = async () => {
+      try {
+        const response = await fetch(
+          `https://admin.leaftravelsandtour.com/api/tourdetails/by-title/${id}/`
+        );
+        const data = await response.json();
+
+        if (Array.isArray(data) && data.length > 0) {
+          setTour(data[0]);
+        } else if (data) {
+          setTour(data);
+        } else {
+          navigate("/404");
+        }
+      } catch (error) {
+        console.error("Error fetching tour details:", error);
+        navigate("/404");
+      }
+    };
+
+    fetchTourDetails();
+  }, [id, navigate]);
 
   if (!tour) {
-    return null; // Prevent rendering until redirect
+    return <div>Loading...</div>;
   }
+
+  // Transform images for ImageGallery
+  const images = tour.images.map((img) => ({
+    original: img,
+    thumbnail: img,
+  }));
 
   return (
     <>
       <Breadcrumbs
-        title={tour.title}
+        title={`Tour ${tour.tour?.title || "Details"}`}
         pagename="Tours"
         childpagename="Tour Details"
         additionalText="Kindly contact us for Customized Package"
@@ -47,10 +67,9 @@ function TourDetails() {
         <Container>
           <Row>
             <Col>
-              <h1 className="fs-2 font-bold mb-4">{tour.title}</h1>
-
+              <h1 className="fs-2 font-bold mb-4">{tour.tour?.title}</h1>
               <ImageGallery
-                items={tour.images || []}
+                items={images}
                 showNav={false}
                 showBullets={false}
                 showPlayButton={false}
@@ -84,81 +103,35 @@ function TourDetails() {
                       <h1 className="font-bold mb-2 h3 border-bottom pb-2">
                         Overview
                       </h1>
-                      <p className="text">{tour.des}</p>
+                      <p className="text">{tour.description}</p>
 
-                      <h5 className="font-bold mb-2 h5 mt-3">Tour Info</h5>
+                      <h5 className="font-bold mb-2 h5 mt-3">Tour Highlights</h5>
                       <ListGroup>
-                        {Array.isArray(tour.tourInfo) &&
-                          tour.tourInfo.map((tourInfo, index) => (
-                            <ListGroup.Item
-                              className="border-0"
-                              key={index}
-                              dangerouslySetInnerHTML={{ __html: tourInfo }}
-                            />
-                          ))}
-                      </ListGroup>
-
-                      <h5 className="font-bold mb-2 h5 mt-3">
-                        Tour Highlights
-                      </h5>
-                      <ListGroup>
-                        {Array.isArray(tour.highlights) &&
-                          tour.highlights.map((val, index) => (
-                            <ListGroup.Item
-                              className="border-0 body-text pb-0"
-                              key={index}
-                            >
-                              {val}
-                            </ListGroup.Item>
-                          ))}
+                        {tour.highlights.map((highlight, index) => (
+                          <ListGroup.Item key={index} className="border-0">
+                            {highlight}
+                          </ListGroup.Item>
+                        ))}
                       </ListGroup>
                     </div>
                   </Tab.Pane>
+
                   <Tab.Pane eventKey="2">
                     <div className="tour_plan">
                       <h1 className="font-bold mb-4 h3 border-bottom pb-2">
                         Itinerary
                       </h1>
                       <Accordion>
-                        {Array.isArray(tour.itinerary) &&
-                          tour.itinerary.map((packageItem, index) => (
-                            <Accordion.Item
-                              eventKey={index.toString()}
-                              key={index}
-                              className="mb-4"
-                            >
-                              <Accordion.Header>
-                                <h1
-                                  className="h6"
-                                  dangerouslySetInnerHTML={{
-                                    __html: packageItem.title,
-                                  }}
-                                ></h1>
-                              </Accordion.Header>
-                              <Accordion.Body className="body-text">
-                                <div
-                                  dangerouslySetInnerHTML={{
-                                    __html: packageItem.des,
-                                  }}
-                                ></div>
-                                {Array.isArray(packageItem.details) &&
-                                  packageItem.details.map((day, dayIndex) => (
-                                    <div key={dayIndex}>
-                                      <h4
-                                        dangerouslySetInnerHTML={{
-                                          __html: day.title,
-                                        }}
-                                      />
-                                      <p
-                                        dangerouslySetInnerHTML={{
-                                          __html: day.des,
-                                        }}
-                                      />
-                                    </div>
-                                  ))}
-                              </Accordion.Body>
-                            </Accordion.Item>
-                          ))}
+                        {tour.itinerary.map((item, index) => (
+                          <Accordion.Item eventKey={index} key={index}>
+                            <Accordion.Header>
+                              <h1 className="h6">{item.day}</h1>
+                            </Accordion.Header>
+                            <Accordion.Body>
+                              <p>{item.description}</p>
+                            </Accordion.Body>
+                          </Accordion.Item>
+                        ))}
                       </Accordion>
                     </div>
                   </Tab.Pane>
@@ -171,30 +144,28 @@ function TourDetails() {
 
                       <h5 className="font-bold mb-2 h5 mt-3">Inclusion</h5>
                       <ListGroup>
-                        {Array.isArray(tour.included) &&
-                          tour.included.map((val, index) => (
-                            <ListGroup.Item
-                              className="border-0 d-flex align-items-center"
-                              key={index}
-                            >
-                              <i className="bi bi-check-lg me-2 text-success h4 m-0" />{" "}
-                              {val}
-                            </ListGroup.Item>
-                          ))}
+                        {tour.included.map((item, index) => (
+                          <ListGroup.Item
+                            key={index}
+                            className="border-0 d-flex align-items-center"
+                          >
+                            <i className="bi bi-check-circle-fill text-success me-2"></i>
+                            {item}
+                          </ListGroup.Item>
+                        ))}
                       </ListGroup>
 
                       <h5 className="font-bold mb-2 h5 mt-3">Exclusion</h5>
                       <ListGroup>
-                        {Array.isArray(tour.exclusion) &&
-                          tour.exclusion.map((val, index) => (
-                            <ListGroup.Item
-                              className="border-0 d-flex align-items-center"
-                              key={index}
-                            >
-                              <i className="bi bi-x-lg me-2 text-danger h5 m-0" />{" "}
-                              {val}
-                            </ListGroup.Item>
-                          ))}
+                        {tour.exclusion.map((item, index) => (
+                          <ListGroup.Item
+                            key={index}
+                            className="border-0 d-flex align-items-center"
+                          >
+                            <i className="bi bi-x-circle-fill text-danger me-2"></i>
+                            {item}
+                          </ListGroup.Item>
+                        ))}
                       </ListGroup>
                     </div>
                   </Tab.Pane>
@@ -205,7 +176,7 @@ function TourDetails() {
                         Location
                       </h1>
                       <iframe
-                        title={`${tour.title} Map`}
+                        title={`${tour.tour?.title || "Map"}`}
                         src={tour.mapURL}
                         width="100%"
                         height="450"
@@ -219,66 +190,68 @@ function TourDetails() {
               </Col>
               <Col md="4">
                 <aside>
-                  <Card className="rounded-3 p-2 shadow-sm mb-4 price-info">
+                  {/* Contact Us Section */}
+                  <Card className="rounded-3 p-3 shadow-sm mb-4">
                     <Card.Body>
-                      <Stack direction="horizontal" gap={2}>
-                        <h1 className="card-title mb-0 h2 font-bold">
-                          Contact us for pricing
-                        </h1>
-                      </Stack>
-                      <div className="d-flex justify-content-between align-items-center mb-4">
-                        <ListGroup horizontal>
-                          <ListGroup.Item className="border-0 me-2 fw-bold">
-                            4.5
-                          </ListGroup.Item>
-                          <ListGroup.Item className="border-0">
-                            <i className="bi bi-star-fill me-1" />
-                          </ListGroup.Item>
-                          <ListGroup.Item className="border-0">
-                            <i className="bi bi-star-fill me-1" />
-                          </ListGroup.Item>
-                          <ListGroup.Item className="border-0">
-                            <i className="bi bi-star-fill me-1" />
-                          </ListGroup.Item>
-                          <ListGroup.Item className="border-0">
-                            <i className="bi bi-star-fill me-1" />
-                          </ListGroup.Item>
-                          <ListGroup.Item className="border-0">
-                            <i className="bi bi-star-half" />
-                          </ListGroup.Item>
-                        </ListGroup>
-                        <h5 className="h6">(365 reviews)</h5>
+                      <h1 className="card-title mb-3 h4 font-bold">
+                        Contact us for pricing
+                      </h1>
+                      <div className="d-flex align-items-center mb-3">
+                        <span className="me-2 h5">4.5</span>
+                        <div className="text-warning me-2">
+                          <i className="bi bi-star-fill"></i>
+                          <i className="bi bi-star-fill"></i>
+                          <i className="bi bi-star-fill"></i>
+                          <i className="bi bi-star-fill"></i>
+                          <i className="bi bi-star-half"></i>
+                        </div>
+                        <span className="text-muted">(365 reviews)</span>
                       </div>
-                      <NavLink
-                        className="primaryBtn w-100 d-flex justify-content-center fw-bold"
-                        to="/tours/booking"
+                      <button
+                        className="btn btn-danger w-100 fw-bold"
+                        style={{ fontSize: "1rem" }}
                       >
                         Book Now
-                      </NavLink>
+                      </button>
                     </Card.Body>
                   </Card>
 
-                  <Card className="card-info p-2 shadow-sm">
+                  {/* Need Help Section */}
+                  <Card className="rounded-3 p-3 shadow-sm">
                     <Card.Body>
-                      <h1 className="font-bold mb-2 h3">Need Help?</h1>
-                      <ListGroup>
-                        <ListGroup.Item>
-                          <i className="bi bi-telephone me-1" /> Call us on:
-                          <strong>+977 9802305614/15/16</strong>
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                          <i className="bi bi-alarm me-1" /> Timing:
-                          <strong>10AM to 5PM</strong>
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                          <i className="bi bi-headset me-1" />
-                          <strong>Let Us Call You</strong>
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                          <i className="bi bi-geo-alt me-1" /> Visit Us:
-                          <strong>Gairidhara, Kathmandu</strong>
-                        </ListGroup.Item>
-                      </ListGroup>
+                      <h5 className="card-title mb-3 font-bold">Need Help?</h5>
+                      <ul className="list-unstyled mb-0">
+                        <li className="d-flex align-items-start mb-3">
+                          <i className="bi bi-telephone-fill me-3 text-danger"></i>
+                          <div>
+                            <span>Call us on:</span> <br />
+                            <a
+                              href="tel:+9779802305614"
+                              className="text-decoration-none fw-bold"
+                            >
+                              +977 9802305614/15/16
+                            </a>
+                          </div>
+                        </li>
+                        <li className="d-flex align-items-start mb-3">
+                          <i className="bi bi-clock-fill me-3 text-danger"></i>
+                          <div>
+                            <span>Timing:</span> <br />
+                            <span className="fw-bold">10AM to 5PM</span>
+                          </div>
+                        </li>
+                        <li className="d-flex align-items-start mb-3">
+                          <i className="bi bi-headphones me-3 text-danger"></i>
+                          <span className="fw-bold">Let Us Call You</span>
+                        </li>
+                        <li className="d-flex align-items-start">
+                          <i className="bi bi-geo-alt-fill me-3 text-danger"></i>
+                          <div>
+                            <span>Visit Us:</span> <br />
+                            <span className="fw-bold">Gairidhara, Kathmandu</span>
+                          </div>
+                        </li>
+                      </ul>
                     </Card.Body>
                   </Card>
                 </aside>

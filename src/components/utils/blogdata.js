@@ -1,4 +1,4 @@
-// src/utils/blogData.js
+
 import blogImage1 from "../../assets/images/new/blogimage1.jpg"; // Replace with actual image paths
 import blogImage2 from "../../assets/images/new/nepalbeauty.jpg";
 import blogImage3 from "../../assets/images/popular/thailand.jpg";
@@ -7,7 +7,7 @@ const blogData = [
     {
         id: 1,
         title: "Discovering Hidden Gems: The Joy of Off-the-Beaten-Path Travel",
-        image: blogImage1, // Add the path to your image here
+        image: blogImage1, 
         description: "Explore unique travel experiences beyond popular landmarks.",
         content: `
           <h2>Discovering Hidden Gems: The Joy of Off-the-Beaten-Path Travel</h2>

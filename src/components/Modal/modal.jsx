@@ -1,7 +1,7 @@
 // src/components/Modal.js
 import React from 'react';
 import './modal.css'; // Ensure you have a CSS file for styling
-import popup from "../../assets/images/modal/leaftravels.jpeg"; // Image source
+import popup from "../../assets/images/modal/White and Orange Decorative Diwali Festival Instagram Post.jpg"; // Image source
 
 const Modal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;

@@ -38,7 +38,7 @@ export const popularsData = [
     title: "Discover Singapore",
     image: Singapore,
     location: "Singapore",
-    category: ["City Tour", ""], // Make sure the array is correctly formatted
+    category: ["City Tour", ""], 
     days: "5 days - 4 nights",
     price: 100,
     afterDiscount: 92,
@@ -132,7 +132,7 @@ export const popularsData = [
   },
 ];
 
-export const tourDetails = [
+export const tourDetails =[
   {
     id: 0,
     title: "Singapore Amazing Tour - 5 Days, 4 Nights",
@@ -266,8 +266,6 @@ export const tourDetails = [
       { original: hanumandhoka, thumbnail: hanumandhoka },
     ],
   },
-  
-
   {
     id: 2, 
     title: "Nepal Package - 3, 7, and 15 Days Options",
