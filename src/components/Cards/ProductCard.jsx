@@ -2,7 +2,7 @@ import React from "react";
 import { Card, Stack } from "react-bootstrap";
 import "../Cards/card.css";
 
-const ProductCard = ({ val }) => {
+const ProductCard = ({ val, showPrice }) => {
   // Convert category to an array if it's not already
   const categories = Array.isArray(val.category) ? val.category : [val.category];
 
@@ -40,7 +40,7 @@ const ProductCard = ({ val }) => {
       </Card.Body>
 
       <Card.Footer className="py-4">
-        {afterDiscount ? (
+        {afterDiscount && showPrice ? (
           <p className="text-decoration-line-through">
             {" "}
             Nrs.{price.toFixed(2)}
@@ -51,11 +51,13 @@ const ProductCard = ({ val }) => {
 
         <Stack direction="horizontal" className="justify-content-between mt-3">
           <p>
-            From{" "}
+            {" "}
             <b>
-              {afterDiscount
-                ? 'Nrs.' + afterDiscount.toFixed(2)
-                : 'Nrs.' + price.toFixed(2)}
+              {showPrice
+                ? afterDiscount
+                  ? 'Nrs.' + afterDiscount.toFixed(2)
+                  : 'Nrs.' + price.toFixed(2)
+                : ''}
             </b>
           </p>
           <p>

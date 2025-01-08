@@ -91,35 +91,62 @@ const Contact = () => {
               </Card>
             </Col>
             <Col lg={4} className="mb-4 mb-lg-0">
-              <Card className="border-0 shadow  rounded-3">
-                <Card.Body className="text-center">
-                  <div className="d-flex justify-content-center align-items-center my-2 ">
-                    <div className="bg-warning bg-opacity-10 text-warning rounded-circle mb-2 flex-centered p-3">
-                      <i className="bi bi-globe2 h3"></i>
-                    </div>
-                  </div>
-                  <Card.Title className="title fw-bold">Social media</Card.Title>
-                  <p className="mb-2 body-text">
-                    Follow us on social media
-                  </p>
+  <Card className="border-0 shadow rounded-3">
+    <Card.Body className="text-center">
+      <div className="d-flex justify-content-center align-items-center my-2">
+        <div className="bg-warning bg-opacity-10 text-warning rounded-circle mb-2 flex-centered p-3">
+          <i className="bi bi-globe2 h3"></i>
+        </div>
+      </div>
+      <Card.Title className="title fw-bold">Social media</Card.Title>
+      <p className="mb-2 body-text">Follow us on social media</p>
 
-                  <ListGroup horizontal className="border-0 justify-content-center">
-                    <ListGroup.Item className="border-0">
-                      <i className="bi bi-facebook"></i>
-                    </ListGroup.Item>
-                    <ListGroup.Item className="border-0">
-                      <i className="bi bi-instagram"></i>
-                    </ListGroup.Item>
-                    <ListGroup.Item className="border-0">
-                      <i className="bi bi-linkedin"></i>
-                    </ListGroup.Item>
-                    <ListGroup.Item className="border-0">
-                      <i className="bi bi-twitter"></i>
-                    </ListGroup.Item>
-                  </ListGroup>
-                </Card.Body>
-              </Card>
-            </Col>
+      <ListGroup horizontal className="border-0 justify-content-center mt-3">
+        <ListGroup.Item className="border-0 mx-2">
+          <a
+            href="https://www.facebook.com/share/15G8HsemZV/?mibextid=wwXIfr"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-decoration-none text-dark"
+          >
+            <i className="bi bi-facebook h5"></i>
+          </a>
+        </ListGroup.Item>
+        <ListGroup.Item className="border-0 mx-2">
+          <a
+            href="https://www.instagram.com/leaftravelsandtours/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-decoration-none text-dark"
+          >
+            <i className="bi bi-instagram h5"></i>
+          </a>
+        </ListGroup.Item>
+        <ListGroup.Item className="border-0 mx-2">
+          <a
+            href="https://www.linkedin.com/company/leaf-tours-and-travels"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-decoration-none text-dark"
+          >
+            <i className="bi bi-linkedin h5"></i>
+          </a>
+        </ListGroup.Item>
+        <ListGroup.Item className="border-0 mx-2">
+          <a
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-decoration-none text-dark"
+          >
+            <i className="bi bi-twitter h5"></i>
+          </a>
+        </ListGroup.Item>
+      </ListGroup>
+    </Card.Body>
+  </Card>
+</Col>
+
           </Row>
           {/* Other parts of the contact section remain the same */}
           <Row className="g-4 g-lg-5 align-items-center py-5">
