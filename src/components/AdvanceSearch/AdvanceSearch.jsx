@@ -41,7 +41,7 @@ const AdvanceSearch = () => {
                   />
                 </div>
                 <div className="item-search item-search-2">
-                  <label className="item-search-label"> Check in </label>
+                  <label className="item-search-label"> From </label>
                   <DatePicker
                     selected={startDate}
                     onChange={(date) => setStartDate(date)}
@@ -53,7 +53,7 @@ const AdvanceSearch = () => {
                   />
                 </div>
                 <div className="item-search item-search-2">
-                  <label className="item-search-label"> Check Out </label>
+                  <label className="item-search-label"> To </label>
                   <DatePicker
                     selected={endDate}
                     onChange={(date) => setEndDate(date)}
@@ -65,7 +65,7 @@ const AdvanceSearch = () => {
                 </div>
                 <div className="item-search bd-none">
                   <CustomDropdown
-                    label="Guest"
+                    label="People"
                     onSelect={selectedGuest}
                     options={[
                       "2 adults, 1 children",
