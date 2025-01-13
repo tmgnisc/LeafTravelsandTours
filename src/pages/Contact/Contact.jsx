@@ -59,11 +59,11 @@ const Contact = () => {
                   <div className=" d-block justify-content-between">
                     <a type="button" className="btn btn-light me-2 btn-sm">
                       <i className="bi bi-phone me-1"></i>
-                      9802305616
+                      9802305616, 014547196
                     </a>
                     <a type="button" className="btn btn-light btn-sm">
                       <i className="bi bi-telephone me-1"></i>
-                      9802305615, 9802305614
+                      9802305615, 9802305614, 9802379013
                     </a>
                   </div>
                 </Card.Body>

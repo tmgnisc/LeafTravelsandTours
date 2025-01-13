@@ -88,7 +88,7 @@ const Footer = () => {
               </div>
               <div className="d-flex align-items-top ">
                 <i className="bi bi-telephone me-3"></i>
-                <a target="_blank" href="tel:9876543210" className="d-block">977- 9802305614, 9802305615, 9802305616</a>
+                <a target="_blank" href="tel:9876543210" className="d-block">977- 9802305614, 9802305615, 9802305616, 014547196</a>
               </div>
             </Col>
           </Row>
