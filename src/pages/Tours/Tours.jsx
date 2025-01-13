@@ -35,13 +35,12 @@ function Tours() {
     fetchTours();
   }, []);
 
-
   const filteredTours = tours.filter((tour) => {
     if (inboundFilter && outboundFilter) {
-      return true; 
+      return true;
     }
     if (inboundFilter) {
-      return tour.category === "Inbound"; 
+      return tour.category === "Inbound";
     }
     if (outboundFilter) {
       return tour.category === "outbound";
@@ -72,6 +71,8 @@ function Tours() {
                 <Filters
                   setInboundFilter={setInboundFilter}
                   setOutboundFilter={setOutboundFilter}
+                  inboundFilter={inboundFilter}
+                  outboundFilter={outboundFilter}
                 />
               </div>
             </Col>
@@ -106,10 +107,13 @@ function Tours() {
           <Offcanvas.Title>Filters</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <Filters
-            setInboundFilter={setInboundFilter}
-            setOutboundFilter={setOutboundFilter}
-          />
+        <Filters
+  setInboundFilter={setInboundFilter}
+  setOutboundFilter={setOutboundFilter}
+  inboundFilter={inboundFilter}
+  outboundFilter={outboundFilter}
+/>
+
         </Offcanvas.Body>
       </Offcanvas>
     </>
