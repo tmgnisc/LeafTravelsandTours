@@ -20,7 +20,7 @@ const ProductCard = ({ val, showPrice }) => {
       />
       <Card.Body>
         <Card.Text>
-          <i className="bi bi-geo-alt"></i>
+          {/* <i className="bi bi-geo-alt"></i> */}
           <span className="text">{val.location}</span>
         </Card.Text>
         <Card.Title> {val.title} </Card.Title>
