@@ -3,6 +3,7 @@ import "../Footer/footer.css";
 import { Col, Container, Row, ListGroup } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import FaWhatsapp from '../../../assets/images/icons/WhatsApp_icon.png';
+import PandaImage from '../../../assets/images/icons/panda.png'; // Import the Panda image
 
 const Footer = () => {
   const [visible, setVisible] = useState(false);
@@ -100,13 +101,21 @@ const Footer = () => {
         </Container>
       </footer>
 
-      <div id="back-top" onClick={scrollTop} className={visible ? "active" : ""}>
+      {/* <div id="back-top" onClick={scrollTop} className={visible ? "active" : ""}>
         <i className="bi bi-arrow-up"></i>
-      </div>
+      </div> */}
 
       {visible && (
-        <div id="whatsapp" onClick={openWhatsApp} className="whatsapp-icon">
-          <img src={FaWhatsapp} alt="WhatsApp" />
+        <div className="floating-icons">
+          {/* WhatsApp Icon */}
+          <div id="whatsapp" onClick={openWhatsApp} className="whatsapp-icon">
+            <img src={FaWhatsapp} alt="WhatsApp" />
+          </div>
+
+          {/* Panda Image beside WhatsApp */}
+          <div className="panda-icon">
+            <img src={PandaImage} alt="Panda" />
+          </div>
         </div>
       )}
     </>
