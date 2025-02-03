@@ -1,4 +1,3 @@
-// src/pages/Home/Home.js
 import React, { useState, useEffect } from "react";
 import Banner from "../../components/Banner/Banner";
 import AdvanceSearch from "../../components/AdvanceSearch/AdvanceSearch";
@@ -10,6 +9,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Modal from "../../components/Modal/modal";
 import "../Home/home.css";
+import PopularPlace from "../../components/PopularPlace/PopularPlace";
+import Gallery from "../../components/Gallery/Gallery";
 
 // Your image imports
 import tour4 from "../../assets/images/tour/Tokyo.png";
@@ -19,20 +20,41 @@ import tour6 from "../../assets/images/tour/bangkok.png";
 import tour7 from "../../assets/images/tour/cancun.png";
 import tour8 from "../../assets/images/tour/nah-trang.png";
 import tour9 from "../../assets/images/tour/phuket.png";
-import PopularPlace from "../../components/PopularPlace/PopularPlace";
-import Gallery from "../../components/Gallery/Gallery";
 
 const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [ctaTitle, setCtaTitle] = useState(
+    "READY FOR UNFORGETTABLE TRAVEL. REMEMBER US!"
+  );
+
+  useEffect(() => {
+    // Fetch the CTA title from the API
+    const fetchCtaTitle = async () => {
+      try {
+        const response = await fetch(
+          "https://admin.leaftravelsandtour.com/api/slogans/"
+        );
+        const data = await response.json();
+
+        if (data.length > 0) {
+          setCtaTitle(data[0].title); // Assuming the first item contains the title
+        }
+      } catch (error) {
+        console.error("Error fetching CTA title:", error);
+      }
+    };
+
+    fetchCtaTitle();
+  }, []);
 
   useEffect(() => {
     // Open the modal when the component mounts
     setIsModalOpen(true);
 
-    // Optional: Close the modal after 5 seconds
+    // Close the modal after 5 seconds
     const timer = setTimeout(() => {
       setIsModalOpen(false);
-    }, 5000); // Adjust duration as needed
+    }, 5000);
 
     return () => clearTimeout(timer); // Cleanup timer
   }, []);
@@ -95,18 +117,14 @@ const Home = () => {
       name: "Bali",
       tours: "5 tours and activities",
       image: tour5,
-      link: "tour-name",
-      shortDes: "",
       link: "/tour",
-      location: "dehradun",
+      location: "Dehradun",
     },
     {
       id: 1,
       name: "Tokyo",
       tours: "9 tours and activities",
       image: tour4,
-      link: "tour-name",
-      shortDes: "",
       link: "/tour",
       location: "Rishikesh",
     },
@@ -115,8 +133,6 @@ const Home = () => {
       name: "Bangkok",
       tours: "5 tours and activities",
       image: tour6,
-      link: "tour-name",
-      shortDes: "",
       link: "/tour",
       location: "Mussoorie",
     },
@@ -125,18 +141,14 @@ const Home = () => {
       name: "Cancun",
       tours: "4 tours and activities",
       image: tour7,
-      link: "tour-name",
-      shortDes: "",
       link: "/tour",
       location: "Uttarkhashi",
     },
     {
       id: 4,
       name: "Nha Trang",
-      tours: "9 tours and activities ",
+      tours: "9 tours and activities",
       image: tour8,
-      link: "tour-name",
-      shortDes: "",
       link: "/tour",
       location: "Manali",
     },
@@ -145,8 +157,6 @@ const Home = () => {
       name: "Phuket",
       tours: "4 tours and activities",
       image: tour9,
-      link: "tour-name",
-      shortDes: "4 tours and activities",
       link: "/tour",
       location: "Haridwar",
     },
@@ -155,8 +165,6 @@ const Home = () => {
       name: "Singapore",
       tours: "5 Days 4 Nights",
       image: tour1,
-      link: "tour-name",
-      shortDes: "5 Days 4 Nights",
       link: "/tour",
       location: "Sentosa Island",
     },
@@ -178,18 +186,12 @@ const Home = () => {
         </Container>
       </section>
       <Partners />
+
       <section className="call_us">
         <Container>
           <Row className="align-items-center">
             <Col md="8">
-              <h5 className="title">CALL TO ACTION</h5>
-              <h2 className="heading">
-                READY FOR UNFORGETTABLE TRAVEL. REMEMBER US!
-              </h2>
-              <p className="text">
-                Embark on a journey of a lifetime with us, creating memories
-                that will last forever.
-              </p>
+              <h2 className="heading">{ctaTitle}</h2>
             </Col>
             <Col md="4" className="text-center mt-3 mt-md-0">
               <a
@@ -204,6 +206,7 @@ const Home = () => {
         </Container>
         <div className="overlay"></div>
       </section>
+
       <Features />
       <section className="tours_section slick_slider">
         <Container>
@@ -242,56 +245,7 @@ const Home = () => {
 
       <PopularPlace />
 
-      <section className="call_us">
-        <Container>
-          <Row className="align-items-center">
-            <Col md="8">
-              <h5 className="title">CALL TO ACTION</h5>
-              <h2 className="heading">
-                READY FOR UNFORGETTABLE TRAVEL. REMEMBER US!
-              </h2>
-              <p className="text">
-                Embark on a journey of a lifetime with us, creating memories
-                that will last forever.
-              </p>
-            </Col>
-            <Col md="4" className="text-center mt-3 mt-md-0">
-              <a
-                href="tel:9802305614"
-                className="secondary_btn bounce"
-                rel="no"
-              >
-                Contact Us!
-              </a>
-            </Col>
-          </Row>
-        </Container>
-        <div className="overlay"></div>
-      </section>
-
-      <section className="gallery">
-        <Container>
-          <Row>
-            <Col md="12">
-              <div className="main_heading">
-                <h1>Photo Gallery</h1>
-              </div>
-            </Col>
-          </Row>
-          <Row>
-            <Col md="12">
-              <Gallery />
-            </Col>
-          </Row>
-        </Container>
-      </section>
-
-      {/* Modal for popup image */}
-      {/* <Modal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        imageUrl="path/to/your/image.jpg" // Replace with the actual image path you want to show
-      /> */}
+      <Gallery />
     </>
   );
 };
