@@ -11,6 +11,10 @@ const Header = () => {
     setOpen(!open);
   };
 
+  const closeMenu = () => {
+    setOpen(false);
+  };
+
   useEffect(() => {
     window.addEventListener("scroll", isSticky);
     return () => {
@@ -50,6 +54,7 @@ const Header = () => {
             aria-labelledby={`offcanvasNavbarLabel-expand-lg`}
             placement="start"
             show={open}
+            onHide={closeMenu}
           >
             {/* Mobile Logo Section  */}
             <Offcanvas.Header>
@@ -68,19 +73,23 @@ const Header = () => {
 
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                <NavLink className="nav-link" to="/">
+                <NavLink className="nav-link" to="/" onClick={closeMenu}>
                   Home
                 </NavLink>
-                <NavLink className="nav-link" to="about-us">
+                <NavLink className="nav-link" to="about-us" onClick={closeMenu}>
                   ABOUT US
                 </NavLink>
-                <NavLink className="nav-link" to="tours">
+                <NavLink className="nav-link" to="tours" onClick={closeMenu}>
                   TOURS
                 </NavLink>
-                <NavLink className="nav-link" to="blog">
+                <NavLink className="nav-link" to="blog" onClick={closeMenu}>
                   BLOG
                 </NavLink>
-                <NavLink className="nav-link" to="contact-us">
+                <NavLink
+                  className="nav-link"
+                  to="contact-us"
+                  onClick={closeMenu}
+                >
                   CONTACT
                 </NavLink>
               </Nav>
