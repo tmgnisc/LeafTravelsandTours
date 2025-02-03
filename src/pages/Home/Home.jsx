@@ -245,7 +245,22 @@ const Home = () => {
 
       <PopularPlace />
 
-      <Gallery />
+      <section className="gallery">
+        <Container>
+          <Row>
+            <Col md="12">
+              <div className="main_heading">
+                <h1>Photo Gallery</h1>
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col md="12">
+              <Gallery />
+            </Col>
+          </Row>
+        </Container>
+      </section>
     </>
   );
 };
