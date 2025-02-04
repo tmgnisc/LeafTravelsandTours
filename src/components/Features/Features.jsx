@@ -1,6 +1,5 @@
 import React from "react";
 import "../Features/features.css";
-
 import feature1 from "../../assets/images/feature/beach-umbrella.png";
 import feature2 from "../../assets/images/feature/deal.png";
 import feature3 from "../../assets/images/feature/location.png";
@@ -10,52 +9,47 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+// Custom Prev Arrow Component
+const PrevArrow = ({ onClick }) => {
+  return <div className="slick-prev custom-arrow left-arrow" onClick={onClick}>&#10094;</div>;
+};
+
+// Custom Next Arrow Component
+const NextArrow = ({ onClick }) => {
+  return <div className="slick-next custom-arrow right-arrow" onClick={onClick}>&#10095;</div>;
+};
 
 const Features = () => {
   var settings = {
     dots: false,
     infinite: true,
-    autoplay:false,
-    autoplaySpeed:1500,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    
+    autoplay: true, // Enables automatic scrolling
+    autoplaySpeed: 2000, // Scrolls every 2 seconds
+    speed: 1000, // Smooth transition
+    slidesToShow: 3, // Shows 3 slides at a time
+    slidesToScroll: 1, // Scrolls 1 at a time
+    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow />,
+
     responsive: [
       {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 4,
-          slidesToScroll: 1,
-          infinite: false,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 991,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: false,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
+        breakpoint: 991, // For tablets
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToScroll: 1,
           autoplay: true,
-          prevArrow:false,
-          nextArrow:false,
+          dots: true,
         },
       },
       {
-        breakpoint: 480,
+        breakpoint: 600, // For small screens
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          prevArrow:false,
-          nextArrow:false,
+          autoplay: true,
+          prevArrow: false,
+          nextArrow: false,
+          dots: true,
         },
       },
     ],
@@ -80,7 +74,6 @@ const Features = () => {
       title: "Exploring made easy",
       des: "Book last minute, skip lines &amp; get free cancellation for easier exploring.",
     },
-
     {
       id: 3,
       image: feature4,
@@ -91,7 +84,6 @@ const Features = () => {
 
   return (
     <>
-    
       <section className="feature-section">
         <Container>
           <Row>

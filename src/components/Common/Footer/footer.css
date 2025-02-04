@@ -99,10 +99,9 @@ footer .bdr {
   height: auto;
 }
 
-/* Panda Icon */
 .panda-icon {
-  width: 45px;
-  height: 45px;
+  width: 90px; /* Increased from 45px */
+  height: 90px; /* Increased from 45px */
 }
 
 .panda-icon img {

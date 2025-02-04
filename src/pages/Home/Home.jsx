@@ -187,6 +187,7 @@ const Home = () => {
       </section>
       <Partners />
 
+      <Features />
       <section className="call_us">
         <Container>
           <Row className="align-items-center">
@@ -206,8 +207,6 @@ const Home = () => {
         </Container>
         <div className="overlay"></div>
       </section>
-
-      <Features />
       <section className="tours_section slick_slider">
         <Container>
           <Row>

@@ -7,7 +7,7 @@ import icons2 from "../../assets/images/icons/best-price.png";
 import icons3 from "../../assets/images/icons/quick.png";
 
 const About = () => {
-  const [key, setKey] = useState("aboutNepal"); // Default tab
+  const [key, setKey] = useState("english"); // Default tab changed to English
   const [aboutData, setAboutData] = useState(null);
 
   useEffect(() => {
@@ -53,22 +53,58 @@ const About = () => {
                   </div>
                 )}
 
-                {/* Tabs for About Nepal, English, and Nepali Content */}
+                {/* Tabs for English, Nepali, and About Nepal */}
                 <Tab.Container id="language-tabs" activeKey={key} onSelect={(k) => setKey(k)}>
                   <Nav variant="pills" className="flex-row nav_bars rounded-2 mt-4">
-                    <Nav.Item>
-                      <Nav.Link eventKey="aboutNepal">About Nepal</Nav.Link>
-                    </Nav.Item>
                     <Nav.Item>
                       <Nav.Link eventKey="english">English</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
                       <Nav.Link eventKey="nepali">नेपाली</Nav.Link>
                     </Nav.Item>
+                    <Nav.Item>
+                      <Nav.Link eventKey="aboutNepal">About Nepal</Nav.Link>
+                    </Nav.Item>
                   </Nav>
 
                   <Tab.Content className="mt-4">
-                    {/* About Nepal Tab */}
+                    {/* English Tab (Now first) */}
+                    <Tab.Pane eventKey="english">
+                      {aboutData && aboutData.english && (
+                        <>
+                          <h2 className="h2 pt-4 pb-2 font-bold">
+                            {aboutData.english[0].main_heading}
+                          </h2>
+                          <p className="body-text mb-2">{aboutData.english[0].content}</p>
+                          <h5 className="font-bold mb-2">{aboutData.english[0].subheading}</h5>
+                          <ul className="body-text mb-2">
+                            {aboutData.english[0].subcontent.split("\r\n").map((item, index) => (
+                              <li key={index}>{item}</li>
+                            ))}
+                          </ul>
+                        </>
+                      )}
+                    </Tab.Pane>
+
+                    {/* Nepali Tab (Now second) */}
+                    <Tab.Pane eventKey="nepali">
+                      {aboutData && aboutData.nepali && (
+                        <>
+                          <h2 className="h2 pt-4 pb-2 font-bold">
+                            {aboutData.nepali[0].main_heading}
+                          </h2>
+                          <p className="body-text mb-2">{aboutData.nepali[0].content}</p>
+                          <h5 className="font-bold mb-2">{aboutData.nepali[0].subheading}</h5>
+                          <ul className="body-text mb-2">
+                            {aboutData.nepali[0].subcontent.split("\r\n").map((item, index) => (
+                              <li key={index}>{item}</li>
+                            ))}
+                          </ul>
+                        </>
+                      )}
+                    </Tab.Pane>
+
+                    {/* About Nepal Tab (Now last) */}
                     <Tab.Pane eventKey="aboutNepal">
                       {aboutData && aboutData.aboutNepal && (
                         <>
@@ -90,42 +126,6 @@ const About = () => {
                         </>
                       )}
                     </Tab.Pane>
-
-                    {/* English Tab */}
-                    <Tab.Pane eventKey="english">
-                      {aboutData && aboutData.english && (
-                        <>
-                          <h2 className="h2 pt-4 pb-2 font-bold">
-                            {aboutData.english[0].main_heading}
-                          </h2>
-                          <p className="body-text mb-2">{aboutData.english[0].content}</p>
-                          <h5 className="font-bold mb-2">{aboutData.english[0].subheading}</h5>
-                          <ul className="body-text mb-2">
-                            {aboutData.english[0].subcontent.split("\r\n").map((item, index) => (
-                              <li key={index}>{item}</li>
-                            ))}
-                          </ul>
-                        </>
-                      )}
-                    </Tab.Pane>
-
-                    {/* Nepali Tab */}
-                    <Tab.Pane eventKey="nepali">
-                      {aboutData && aboutData.nepali && (
-                        <>
-                          <h2 className="h2 pt-4 pb-2 font-bold">
-                            {aboutData.nepali[0].main_heading}
-                          </h2>
-                          <p className="body-text mb-2">{aboutData.nepali[0].content}</p>
-                          <h5 className="font-bold mb-2">{aboutData.nepali[0].subheading}</h5>
-                          <ul className="body-text mb-2">
-                            {aboutData.nepali[0].subcontent.split("\r\n").map((item, index) => (
-                              <li key={index}>{item}</li>
-                            ))}
-                          </ul>
-                        </>
-                      )}
-                    </Tab.Pane>
                   </Tab.Content>
                 </Tab.Container>
               </div>
@@ -143,34 +143,6 @@ const About = () => {
                   <Card.Title className="title fw-bold">50+ Destinations</Card.Title>
                   <p className="mb-2 body-text">
                     Explore over 50 breathtaking destinations around the world, tailored to suit every traveler’s desire.
-                  </p>
-                </Card.Body>
-              </Card>
-
-              <Card className="border-0 shadow-sm rounded-3 mb-4">
-                <Card.Body className="text-center">
-                  <div className="d-flex justify-content-center align-items-center my-2">
-                    <div className="bg-light shadow-sm bg-opacity-10 text-info rounded-circle mb-2 flex-centered p-2">
-                      <img src={icons2} alt="Best Price" className="img-fluid" />
-                    </div>
-                  </div>
-                  <Card.Title className="title fw-bold">Best Price Guarantee</Card.Title>
-                  <p className="mb-2 body-text">
-                    We offer competitive pricing, ensuring you get the best value for your money.
-                  </p>
-                </Card.Body>
-              </Card>
-
-              <Card className="border-0 shadow-sm rounded-3 mb-4">
-                <Card.Body className="text-center">
-                  <div className="d-flex justify-content-center align-items-center my-2">
-                    <div className="bg-light shadow-sm bg-opacity-10 text-info rounded-circle mb-2 flex-centered p-2">
-                      <img src={icons3} alt="Quick Booking" className="img-fluid" />
-                    </div>
-                  </div>
-                  <Card.Title className="title fw-bold">Quick Booking</Card.Title>
-                  <p className="mb-2 body-text">
-                    Easy and efficient booking process, ensuring you spend less time planning and more time enjoying your trip.
                   </p>
                 </Card.Body>
               </Card>
