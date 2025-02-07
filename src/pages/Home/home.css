@@ -19,9 +19,25 @@
 }
 
 .tours_section .img-box .card img {
+  width: 100%; /* Ensures the image fits the card width */
+  height: 200px; /* Fixed height for uniformity */
+  object-fit: cover; /* Ensures the image is cropped proportionally */
   transition: all 0.5s ease 0s;
   filter: brightness(0.8);
 }
+
+@media (max-width: 768px) {
+  .tours_section .img-box .card img {
+    height: 150px; /* Adjust height for smaller screens */
+  }
+}
+
+@media (max-width: 420px) {
+  .tours_section .img-box .card img {
+    height: 120px; /* Adjust height for very small screens */
+  }
+}
+
 
 .tours_section .img-box .card .card-title {
   position: absolute;

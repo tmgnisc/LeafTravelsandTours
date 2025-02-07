@@ -57,7 +57,7 @@ const About = () => {
                 <Tab.Container id="language-tabs" activeKey={key} onSelect={(k) => setKey(k)}>
                   <Nav variant="pills" className="flex-row nav_bars rounded-2 mt-4">
                     <Nav.Item>
-                      <Nav.Link eventKey="english">English</Nav.Link>
+                      <Nav.Link eventKey="english">About Us</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
                       <Nav.Link eventKey="nepali">नेपाली</Nav.Link>

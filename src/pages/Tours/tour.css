@@ -3,6 +3,24 @@
   border: 1px solid #e7e6e6;
 }
 
+
+.filters {
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .filters {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .filter_box {
+    padding: 15px;
+  }
+}
+
 .filter_box .accordion-item {
   border-bottom: 1px solid #e7e6e6 !important;
 }

@@ -12,24 +12,17 @@ import "../Home/home.css";
 import PopularPlace from "../../components/PopularPlace/PopularPlace";
 import Gallery from "../../components/Gallery/Gallery";
 
-// Your image imports
-import tour4 from "../../assets/images/tour/Tokyo.png";
-import tour1 from "../../assets/images/tour/singa.jpg";
-import tour5 from "../../assets/images/tour/bali-1.png";
-import tour6 from "../../assets/images/tour/bangkok.png";
-import tour7 from "../../assets/images/tour/cancun.png";
-import tour8 from "../../assets/images/tour/nah-trang.png";
-import tour9 from "../../assets/images/tour/phuket.png";
-
 const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [ctaTitle, setCtaTitle] = useState(
     "READY FOR UNFORGETTABLE TRAVEL. REMEMBER US!"
   );
+  const [ctaImage, setCtaImage] = useState(""); // State for dynamic background image
+  const [destinations, setDestinations] = useState([]); // State for dynamic destinations
 
   useEffect(() => {
-    // Fetch the CTA title from the API
-    const fetchCtaTitle = async () => {
+    // Fetch the CTA title and background image from the API
+    const fetchCtaData = async () => {
       try {
         const response = await fetch(
           "https://admin.leaftravelsandtour.com/api/slogans/"
@@ -37,21 +30,37 @@ const Home = () => {
         const data = await response.json();
 
         if (data.length > 0) {
-          setCtaTitle(data[0].title); // Assuming the first item contains the title
+          setCtaTitle(data[0].title);
+          setCtaImage(data[0].image); // Set dynamic image from API
         }
       } catch (error) {
-        console.error("Error fetching CTA title:", error);
+        console.error("Error fetching CTA data:", error);
       }
     };
 
-    fetchCtaTitle();
+    fetchCtaData();
   }, []);
 
   useEffect(() => {
-    // Open the modal when the component mounts
-    setIsModalOpen(true);
+    // Fetch destinations from the API
+    const fetchDestinations = async () => {
+      try {
+        const response = await fetch(
+          "https://admin.leaftravelsandtour.com/api/gallery-images/"
+        );
+        const data = await response.json();
+        setDestinations(data); // Update state with API data
+      } catch (error) {
+        console.error("Error fetching destinations:", error);
+      }
+    };
 
-    // Close the modal after 5 seconds
+    fetchDestinations();
+  }, []);
+
+  useEffect(() => {
+    // Open modal on mount and close after 5 seconds
+    setIsModalOpen(true);
     const timer = setTimeout(() => {
       setIsModalOpen(false);
     }, 5000);
@@ -111,65 +120,6 @@ const Home = () => {
     ],
   };
 
-  const destinations = [
-    {
-      id: 0,
-      name: "Bali",
-      tours: "5 tours and activities",
-      image: tour5,
-      link: "/tour",
-      location: "Dehradun",
-    },
-    {
-      id: 1,
-      name: "Tokyo",
-      tours: "9 tours and activities",
-      image: tour4,
-      link: "/tour",
-      location: "Rishikesh",
-    },
-    {
-      id: 2,
-      name: "Bangkok",
-      tours: "5 tours and activities",
-      image: tour6,
-      link: "/tour",
-      location: "Mussoorie",
-    },
-    {
-      id: 3,
-      name: "Cancun",
-      tours: "4 tours and activities",
-      image: tour7,
-      link: "/tour",
-      location: "Uttarkhashi",
-    },
-    {
-      id: 4,
-      name: "Nha Trang",
-      tours: "9 tours and activities",
-      image: tour8,
-      link: "/tour",
-      location: "Manali",
-    },
-    {
-      id: 5,
-      name: "Phuket",
-      tours: "4 tours and activities",
-      image: tour9,
-      link: "/tour",
-      location: "Haridwar",
-    },
-    {
-      id: 6,
-      name: "Singapore",
-      tours: "5 Days 4 Nights",
-      image: tour1,
-      link: "/tour",
-      location: "Sentosa Island",
-    },
-  ];
-
   return (
     <>
       <Banner />
@@ -188,18 +138,21 @@ const Home = () => {
       <Partners />
 
       <Features />
-      <section className="call_us">
+
+      {/* Dynamic Background Image Section */}
+      <section
+        className="call_us"
+        style={{
+          background: `url(${ctaImage}) no-repeat center center/cover`,
+        }}
+      >
         <Container>
           <Row className="align-items-center">
             <Col md="8">
               <h2 className="heading">{ctaTitle}</h2>
             </Col>
             <Col md="4" className="text-center mt-3 mt-md-0">
-              <a
-                href="tel:9802305614"
-                className="secondary_btn bounce"
-                rel="no"
-              >
+              <a href="tel:9802305614" className="secondary_btn bounce" rel="no">
                 Contact Us!
               </a>
             </Col>
@@ -207,6 +160,8 @@ const Home = () => {
         </Container>
         <div className="overlay"></div>
       </section>
+
+      {/* Dynamic "Top Destination" Section */}
       <section className="tours_section slick_slider">
         <Container>
           <Row>
@@ -220,22 +175,19 @@ const Home = () => {
           <Row>
             <Col md="12">
               <Slider {...settings}>
-                {destinations.map((destination, inx) => {
-                  return (
-                    <div className="img-box" key={inx}>
-                      <Card>
-                        <Card.Img
-                          variant="top"
-                          src={destination.image}
-                          className="img-fluid"
-                          alt={destination.name}
-                        />
-                        <Card.Title>{destination.name}</Card.Title>
-                        <span className="tours">{destination.tours}</span>
-                      </Card>
-                    </div>
-                  );
-                })}
+                {destinations.map((destination, inx) => (
+                  <div className="img-box" key={inx}>
+                    <Card>
+                      <Card.Img
+                        variant="top"
+                        src={destination.image}
+                        className="img-fluid"
+                        alt={destination.title}
+                      />
+                      <Card.Title>{destination.title}</Card.Title>
+                    </Card>
+                  </div>
+                ))}
               </Slider>
             </Col>
           </Row>

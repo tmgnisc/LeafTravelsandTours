@@ -17,11 +17,13 @@ const PopularPlace = () => {
           throw new Error(`Error: ${response.status}`);
         }
         const data = await response.json();
-        setPopularPlaces(data); // Update the state with API data
+
+        // Sort by most recent (assuming the API returns in order, otherwise use .sort())
+        setPopularPlaces(data.slice(0, 4)); // Get only the first 4 recent places
       } catch (err) {
-        setError(err.message); // Handle errors
+        setError(err.message);
       } finally {
-        setLoading(false); // Stop loading spinner
+        setLoading(false);
       }
     };
 
@@ -29,7 +31,7 @@ const PopularPlace = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>; // Show loading spinner or message
+    return <div>Loading...</div>; // Show loading message
   }
 
   if (error) {

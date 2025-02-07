@@ -87,6 +87,12 @@ const Features = () => {
       <section className="feature-section">
         <Container>
           <Row>
+            <Col md="12" className="text-center mb-4">
+              {/* Add "Our Services" Title */}
+              <h1 className="section-title">Our Services</h1>
+            </Col>
+          </Row>
+          <Row>
             <Col md="12">
               <Slider {...settings}>
                 {featureList.map((feature, inx) => {

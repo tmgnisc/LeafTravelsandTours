@@ -60,22 +60,20 @@ function Tours() {
       <section className="tour_list py-5">
         <Container>
           <Row className="g-3">
-            <Col xl="3" lg="4" md="12" sm="12">
-              <div className="d-lg-none d-block">
-                <button onClick={handleFilter} className="primaryBtn">
-                  <i className="bi bi-funnel"></i> Filters
-                </button>
-              </div>
+          <Col xl="3" lg="4" md="12" sm="12">
+  {/* Remove the mobile filter button */}
+  
+  {/* Display filters directly, even on mobile */}
+  <div className="filters">
+    <Filters
+      setInboundFilter={setInboundFilter}
+      setOutboundFilter={setOutboundFilter}
+      inboundFilter={inboundFilter}
+      outboundFilter={outboundFilter}
+    />
+  </div>
+</Col>
 
-              <div className="filters d-lg-block d-none">
-                <Filters
-                  setInboundFilter={setInboundFilter}
-                  setOutboundFilter={setOutboundFilter}
-                  inboundFilter={inboundFilter}
-                  outboundFilter={outboundFilter}
-                />
-              </div>
-            </Col>
             <Col xl="9" lg="8" md="12" sm="12">
               <Row>
                 {filteredTours.map((val, inx) => (
@@ -102,7 +100,7 @@ function Tours() {
         </Container>
       </section>
 
-      <Offcanvas show={showFilter} onHide={() => setShowFilter(false)}>
+      {/* <Offcanvas show={showFilter} onHide={() => setShowFilter(false)}>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Filters</Offcanvas.Title>
         </Offcanvas.Header>
@@ -115,7 +113,7 @@ function Tours() {
 />
 
         </Offcanvas.Body>
-      </Offcanvas>
+      </Offcanvas> */}
     </>
   );
 }
