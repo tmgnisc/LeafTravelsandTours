@@ -46,7 +46,7 @@ const Home = () => {
     const fetchDestinations = async () => {
       try {
         const response = await fetch(
-          "https://admin.leaftravelsandtour.com/api/gallery-images/"
+          "https://admin.leaftravelsandtour.com/api/top_destination_list/"
         );
         const data = await response.json();
         setDestinations(data); // Update state with API data

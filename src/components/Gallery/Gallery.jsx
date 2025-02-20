@@ -1,44 +1,30 @@
-import React from 'react'
-import Lightroom from 'react-lightbox-gallery'
-import GalleryImg1 from "../../assets/images/gallery/g1.jpg"
-import GalleryImg3 from "../../assets/images/gallery/g3.jpg"
-import GalleryImg4 from "../../assets/images/gallery/g4.jpg"
-import GalleryImg6 from "../../assets/images/gallery/g6.jpg"
-import GalleryImg7 from "../../assets/images/gallery/g7.jpg"
-
+import React, { useState, useEffect } from 'react';
+import Lightroom from 'react-lightbox-gallery';
 
 const Gallery = () => {
+    const [images, setImages] = useState([]); // State to store images from API
 
-    var images = [
-        {
-            src: GalleryImg1,
-            desc: "Person wearing shoes",
-            sub: "Gift Habeshaw"
-        },
-        {
-            src: GalleryImg3,
-            desc: "Blonde woman wearing sunglasses smiling at the camera ",
-            sub: "Dmitriy Frantsev"
-        },
-        {
-            src: GalleryImg6,
-            sub: "Harry Cunningham"
-        },
-        {
-            src: GalleryImg4,
-            desc: "Jaipur , Rajasthan India",
-            sub: "Liam Baldock"
-        },
-        {
-            src: GalleryImg7,
-            sub: "Verne Ho"
-        },
-        {
-            src: GalleryImg6,
-            desc: "Rann of kutch , India",
-            sub: "Hari Nandakumar"
-        },
-    ];
+    useEffect(() => {
+        const fetchGalleryImages = async () => {
+            try {
+                const response = await fetch('https://admin.leaftravelsandtour.com/api/gallery_images/');
+                const data = await response.json();
+
+                // Transform API response to match Lightroom expected format
+                const formattedImages = data.map((item) => ({
+                    src: item.image, // API provides 'image' URL
+                    desc: "Gallery Image", // You can modify this dynamically if needed
+                    sub: "Leaf Travels" // Default or API-based subtitle
+                }));
+
+                setImages(formattedImages);
+            } catch (error) {
+                console.error("Error fetching gallery images:", error);
+            }
+        };
+
+        fetchGalleryImages();
+    }, []);
 
     var settings = {
         columnCount: {
@@ -47,11 +33,18 @@ const Gallery = () => {
             tab: 3
         },
         mode: "dark",
-        enableZoom:false,
+        enableZoom: false,
     };
+
     return (
-        <Lightroom images={images} settings={settings} />
-   );
+        <>
+            {images.length > 0 ? (
+                <Lightroom images={images} settings={settings} />
+            ) : (
+                <p>Loading gallery...</p> // Fallback text while fetching
+            )}
+        </>
+    );
 }
 
-export default Gallery
+export default Gallery;

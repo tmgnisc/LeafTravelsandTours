@@ -34,7 +34,13 @@
 
   }
 }
+.subheading {
+  font-weight: bold !important;
+}
 
 
 
+strong {
+  font-weight: bold !important;
+}
 

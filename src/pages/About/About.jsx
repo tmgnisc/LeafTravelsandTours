@@ -14,7 +14,9 @@ const About = () => {
     // Fetch about page content from API
     const fetchAboutData = async () => {
       try {
-        const response = await fetch("https://admin.leaftravelsandtour.com/api/about_us/1/");
+        const response = await fetch(
+          "https://admin.leaftravelsandtour.com/api/about_us/1/"
+        );
         const data = await response.json();
         setAboutData(data);
       } catch (error) {
@@ -54,8 +56,15 @@ const About = () => {
                 )}
 
                 {/* Tabs for English, Nepali, and About Nepal */}
-                <Tab.Container id="language-tabs" activeKey={key} onSelect={(k) => setKey(k)}>
-                  <Nav variant="pills" className="flex-row nav_bars rounded-2 mt-4">
+                <Tab.Container
+                  id="language-tabs"
+                  activeKey={key}
+                  onSelect={(k) => setKey(k)}
+                >
+                  <Nav
+                    variant="pills"
+                    className="flex-row nav_bars rounded-2 mt-4"
+                  >
                     <Nav.Item>
                       <Nav.Link eventKey="english">About Us</Nav.Link>
                     </Nav.Item>
@@ -68,56 +77,93 @@ const About = () => {
                   </Nav>
 
                   <Tab.Content className="mt-4">
-                    {/* English Tab (Now first) */}
+                    {/* English Tab */}
                     <Tab.Pane eventKey="english">
-                      {aboutData && aboutData.english && (
-                        <>
-                          <h2 className="h2 pt-4 pb-2 font-bold">
-                            {aboutData.english[0].main_heading}
-                          </h2>
-                          <p className="body-text mb-2">{aboutData.english[0].content}</p>
-                          <h5 className="font-bold mb-2">{aboutData.english[0].subheading}</h5>
-                          <ul className="body-text mb-2">
-                            {aboutData.english[0].subcontent.split("\r\n").map((item, index) => (
-                              <li key={index}>{item}</li>
-                            ))}
-                          </ul>
-                        </>
-                      )}
-                    </Tab.Pane>
+  {aboutData && aboutData.english && (
+    <>
+      <h2 className="h2 pt-4 pb-3 fw-bold">
+        {aboutData.english[0].main_heading}
+      </h2>
+      <p className="body-text mb-3">
+        {aboutData.english[0].content}
+      </p>
 
-                    {/* Nepali Tab (Now second) */}
+      <h3 className="subheading fw-bold mb-3">
+        {aboutData.english[0].subheading}
+      </h3>
+
+      <ul className="body-text mb-4">
+        {aboutData.english[0].subcontent.split("\r\n").map((item, index) => {
+          // Check if the item contains a colon (":")
+          if (item.includes(":")) {
+            const parts = item.split(":");
+            return (
+              <li key={index} className="mb-2">
+                <strong>{parts[0]}:</strong> {parts.slice(1).join(":")}
+              </li>
+            );
+          } else {
+            return <li key={index} className="mb-2">{item}</li>;
+          }
+        })}
+      </ul>
+    </>
+  )}
+</Tab.Pane>
+
+
+
+                    {/* Nepali Tab */}
                     <Tab.Pane eventKey="nepali">
                       {aboutData && aboutData.nepali && (
                         <>
-                          <h2 className="h2 pt-4 pb-2 font-bold">
+                          <h2 className="h2 pt-4 pb-3 fw-bold">
                             {aboutData.nepali[0].main_heading}
                           </h2>
-                          <p className="body-text mb-2">{aboutData.nepali[0].content}</p>
-                          <h5 className="font-bold mb-2">{aboutData.nepali[0].subheading}</h5>
-                          <ul className="body-text mb-2">
-                            {aboutData.nepali[0].subcontent.split("\r\n").map((item, index) => (
-                              <li key={index}>{item}</li>
-                            ))}
+                          <p className="body-text mb-3">
+                            {aboutData.nepali[0].content}
+                          </p>
+
+                          <h3 className="subheading fw-bold mb-3">
+                            {aboutData.nepali[0].subheading}
+                          </h3>
+                          <ul className="body-text mb-4">
+                            {aboutData.nepali[0].subcontent
+                              .split("\r\n")
+                              .map((item, index) => (
+                                <li key={index} className="mb-2">
+                                  {item}
+                                </li>
+                              ))}
                           </ul>
                         </>
                       )}
                     </Tab.Pane>
 
-                    {/* About Nepal Tab (Now last) */}
+                    {/* About Nepal Tab */}
                     <Tab.Pane eventKey="aboutNepal">
                       {aboutData && aboutData.aboutNepal && (
                         <>
-                          <h2 className="h2 pt-4 pb-2 font-bold">
+                          <h2 className="h2 pt-4 pb-3 fw-bold">
                             {aboutData.aboutNepal[0].main_heading}
                           </h2>
-                          <p className="body-text mb-2">{aboutData.aboutNepal[0].content}</p>
-                          <h5 className="font-bold mb-2">{aboutData.aboutNepal[0].subheading}</h5>
-                          <ul className="body-text mb-2">
-                            {aboutData.aboutNepal[0].subcontent.split("\r\n").map((item, index) => (
-                              <li key={index}>{item}</li>
-                            ))}
+                          <p className="body-text mb-3">
+                            {aboutData.aboutNepal[0].content}
+                          </p>
+
+                          <h3 className="subheading fw-bold mb-3">
+                            {aboutData.aboutNepal[0].subheading}
+                          </h3>
+                          <ul className="body-text mb-4">
+                            {aboutData.aboutNepal[0].subcontent
+                              .split("\r\n")
+                              .map((item, index) => (
+                                <li key={index} className="mb-2">
+                                  {item}
+                                </li>
+                              ))}
                           </ul>
+
                           <img
                             src={aboutData.aboutNepal[0].image}
                             alt="Nepal Beauty"
@@ -137,12 +183,19 @@ const About = () => {
                 <Card.Body className="text-center">
                   <div className="d-flex justify-content-center align-items-center my-2">
                     <div className="bg-light shadow-sm bg-opacity-10 rounded-circle mb-2 flex-centered p-2">
-                      <img src={icons1} alt="Destination Icon" className="img-fluid" />
+                      <img
+                        src={icons1}
+                        alt="Destination Icon"
+                        className="img-fluid"
+                      />
                     </div>
                   </div>
-                  <Card.Title className="title fw-bold">50+ Destinations</Card.Title>
+                  <Card.Title className="title fw-bold">
+                    50+ Destinations
+                  </Card.Title>
                   <p className="mb-2 body-text">
-                    Explore over 50 breathtaking destinations around the world, tailored to suit every traveler’s desire.
+                    Explore over 50 breathtaking destinations around the world,
+                    tailored to suit every traveler’s desire.
                   </p>
                 </Card.Body>
               </Card>
